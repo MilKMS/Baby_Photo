@@ -1,0 +1,118 @@
+:root{
+  --bg:#f7f5f0;          /* 종이 바탕색 */
+  --ink:#1f2937;         /* 글자/선 색 */
+  --muted:#6b7280;
+  --axis:#111;           /* 연필선(축) 색 */
+  --card:#fff;
+  --gap: 120px;          /* 아이템 간격 */
+  --radius: 16px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  overflow:hidden;  /* 전체를 수평 스크롤 컨테이너로 만들고 휠 -> 가로 이동 */
+}
+
+/* 종이 질감 + 연필 해칭 */
+#paper-bg{
+  position:fixed; inset:0; z-index:0;
+  background:
+    radial-gradient(1200px 600px at 50% 30%, rgba(0,0,0,.05), rgba(0,0,0,.10)),
+    #f7f5f0;
+}
+#paper-bg::before{
+  content:""; position:absolute; inset:0;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'>\
+<defs><pattern id='h' width='24' height='24' patternUnits='userSpaceOnUse' patternTransform='rotate(-14)'>\
+<line x1='0' y1='0' x2='0' y2='24' stroke='rgba(0,0,0,0.06)' stroke-width='1'/>\
+<line x1='12' y1='0' x2='12' y2='24' stroke='rgba(0,0,0,0.04)' stroke-width='1'/>\
+</pattern></defs><rect width='100%' height='100%' fill='url(%23h)'/></svg>");
+  mix-blend-mode: multiply; opacity:.6; pointer-events:none;
+}
+
+/* 상단/하단 */
+.site-header{
+  position:fixed; left:0; right:0; top:10px; z-index:2;
+  text-align:center; pointer-events:none;
+}
+.site-header h1{ margin:0; font-size: clamp(20px, 3.4vw, 34px) }
+.site-sub{ margin:6px 0 0; color:var(--muted); font-size:14px }
+.site-foot{
+  position:fixed; left:0; right:0; bottom:8px; z-index:2;
+  text-align:center; color:var(--muted); font-size:12px; pointer-events:none;
+}
+
+/* 뷰포트/트랙 */
+.viewport{
+  position:relative; z-index:1;
+  height:100dvh; width:100vw; overflow:hidden;
+}
+.track{
+  position:absolute; top:0; left:50%;
+  height:100%;
+  display:flex; align-items:center; gap:var(--gap);
+  transform: translateX(-50%);   /* 중앙 기준 시작 */
+  padding: 0 50vw;               /* 양끝 여유 */
+}
+
+/* 중앙 축(연필선 텍스처) */
+.axis{
+  position:absolute; left:50%; top:0; bottom:0; width:4px; transform: translateX(-50%);
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.14) 0 6px, rgba(0,0,0,.30) 6px 7px, rgba(0,0,0,.14) 7px 13px);
+  filter: blur(.2px) contrast(1.1);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.02), 0 2px 10px rgba(0,0,0,.08);
+  border-radius:2px;
+}
+
+/* 아이템(테마 카드) */
+.item{
+  position:relative; width: clamp(220px, 28vw, 360px);
+  list-style:none; display:flex; flex-direction:column; align-items:center;
+}
+.item .nub{   /* 축과 카드 연결선(연필 느낌) */
+  position:absolute; left:50%; width:2px; background: var(--axis);
+  transform: translateX(-50%);
+  background-image: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.65));
+  filter: blur(.2px);
+}
+.item.top .nub{ top:50%; bottom: calc(100% + 14px); }
+.item.bottom .nub{ top: calc(100% + 14px); bottom: 50%; }
+
+.card{
+  background:var(--card); border-radius: var(--radius);
+  box-shadow: 0 10px 28px rgba(0,0,0,.12);
+  overflow:hidden; transform: translateZ(0) scale(1); transition: transform .2s ease, box-shadow .2s ease;
+}
+.card img{ width:100%; display:block; aspect-ratio: 4 / 3; object-fit: cover; }
+.meta{ padding:10px 12px 12px; text-align:center }
+.year{ font-weight:800; font-size:14px; color:#334155; letter-spacing:.3px }
+.title{ margin-top:4px; font-weight:600; font-size:15px; color:#111827 }
+
+/* 호버/포커스 효과 */
+.item:focus-within .card, .item:hover .card{
+  transform: translateZ(0) scale(1.035);
+  box-shadow: 0 18px 46px rgba(0,0,0,.18);
+}
+.item:focus-within .card{ outline: 2px solid #3b82f6; outline-offset: 3px }
+
+/* 현재(가운데) 아이템 강조 */
+.item.active .card{
+  transform: translateZ(0) scale(1.06);
+  box-shadow: 0 22px 60px rgba(0,0,0,.24);
+}
+
+/* 모바일: 아이템 간격/크기 축소 */
+@media (max-width: 540px){
+  :root{ --gap: 72px }
+  .item{ width: clamp(200px, 70vw, 320px) }
+}
+
+/* 모션 줄이기 */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; animation:none !important }
+}
