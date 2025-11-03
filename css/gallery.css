@@ -1,0 +1,72 @@
+:root{
+  --bg:#ffffff;
+  --ink:#111;
+  --dot:rgba(0,0,0,0.05);
+  --card-bg:#fff;
+  --card-border:#222;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:'Courier New',monospace;
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex; flex-direction:column;
+  align-items:center;
+  padding:20px;
+  /* 종이 질감(작은 도트 노이즈) */
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+header{ text-align:center; margin-bottom:20px; }
+header h1{ font-size:28px; margin-bottom:6px; }
+header p{ color:#555; font-size:14px; }
+
+.grid{
+  display:grid;
+  gap:18px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  width:100%;
+  max-width:1000px;
+}
+
+.card{
+  background:var(--card-bg);
+  border:2px solid var(--card-border);
+  border-radius:8px;
+  padding:8px;
+  display:flex; flex-direction:column; align-items:center;
+  text-align:center;
+  cursor:pointer;
+  transition: transform .2s ease;
+}
+.card:hover{ transform:scale(1.03); }
+
+.card img{
+  width:100%; height:160px; object-fit:cover;
+  border:1px dashed #222;
+  background:#fafafa;
+}
+
+.card h2{ font-size:16px; margin-top:8px; }
+.card span{ font-size:12px; color:#666; }
+
+/* 모달 보기 */
+.modal{
+  position:fixed; inset:0; background:rgba(255,255,255,.96);
+  display:none; flex-direction:column; align-items:center; justify-content:center;
+  z-index:100;
+}
+.modal.open{ display:flex; animation:fade .2s ease; }
+.modal img{
+  max-width:90vw; max-height:80vh;
+  border:3px solid #111; background:#fff;
+}
+.modal button{
+  position:absolute; top:20px; right:20px;
+  background:#111; color:#fff; border:none; border-radius:4px;
+  padding:6px 12px; cursor:pointer;
+  font-family:'Courier New',monospace;
+}
+@keyframes fade{from{opacity:0}to{opacity:1}}

@@ -1,29 +1,21 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Baby Photo – Themes</title>
-  <link rel="stylesheet" href="css/timeline.css" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baby Photo Gallery</title>
+  <link rel="stylesheet" href="css/gallery.css">
 </head>
 <body>
-  <!-- 종이 질감 배경 -->
-  <div id="paper-bg" aria-hidden="true"></div>
-
-  <header class="site-header">
+  <header class="header">
     <h1>Baby Photo</h1>
-    <p class="site-sub">휠을 굴리면 좌우로 이동하는 테마 타임라인</p>
+    <p>테마별 기록 갤러리</p>
   </header>
 
-  <main class="viewport" id="viewport" aria-label="Theme timeline">
-    <!-- 중앙 축(연필선) -->
-    <div class="axis" aria-hidden="true"></div>
+  <main class="grid" id="themeGrid"></main>
 
-    <!-- 아이템 트랙: JS가 채움 -->
-    <div class="track" id="track" role="list"></div>
-  </main>
+  <footer>© 2025 MilKMS</footer>
 
-  <footer class="site-foot">© <span id="year"></span> MilKMS · Scroll / ← → 로 이동</footer>
-  <script src="js/timeline.js" defer></script>
+  <script src="js/gallery.js"></script>
 </body>
 </html>
