@@ -1,8 +1,25 @@
-// 테마 데이터
-const THEMES = [
-  { title: "여행", year: 2024, cover: "images/travel/12.jpg", photos: ["images/travel/1.jpg","images/travel/2.jpg"] }
-  { title: "100일까지의 여정", year: 2024, cover: "images/travel/1.jpg", photos: ["images/travel/1.jpg","images/travel/2.jpg"] }
+// 테마 데이터 (폴더와 마지막 번호만 입력하면 자동 생성)
+const RAW_THEMES = [
+  { title: "여행", year: 2024, folder: "images/travel", lastIndex: 2 },
+  { title: "생일", year: 2024, folder: "images/birthday", lastIndex: 2 },
+  { title: "놀이시간", year: 2023, folder: "images/playtime", lastIndex: 1 }
 ];
+
+const buildPhotoList = ({ folder, lastIndex, startIndex = 1, extension = "jpg" }) => {
+  const total = Math.max(0, lastIndex - startIndex + 1);
+  return Array.from({ length: total }, (_, idx) => `${folder}/${startIndex + idx}.${extension}`);
+};
+
+const THEMES = RAW_THEMES.map(theme => {
+  const photos = buildPhotoList(theme);
+  const coverIndex = photos.length ? Math.floor(Math.random() * photos.length) : 0;
+
+  return {
+    ...theme,
+    cover: photos[coverIndex] ?? "",
+    photos
+  };
+}).filter(theme => theme.photos.length);
 
 const grid = document.getElementById("themeGrid");
 
