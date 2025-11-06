@@ -1,8 +1,7 @@
 // 테마 데이터 (폴더와 마지막 번호만 입력하면 자동 생성)
 const RAW_THEMES = [
-  { title: "여행", year: 2024, folder: "images/travel", lastIndex: 2 },
-  { title: "생일", year: 2024, folder: "images/birthday", lastIndex: 2 },
-  { title: "놀이시간", year: 2023, folder: "images/playtime", lastIndex: 1 }
+  { title: "100일까지의 여정", year: 2024, folder: "images/borntohundred", lastIndex: 38 },
+  { title: "첫 생일", year: 2025, folder: "images/OneYears", lastIndex: 71 }
 ];
 
 const buildPhotoList = ({ folder, lastIndex, startIndex = 1, extension = "jpg" }) => {
