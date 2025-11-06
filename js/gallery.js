@@ -1,8 +1,7 @@
 // 테마 데이터
 const THEMES = [
-  { title: "여행", year: 2024, cover: "images/travel/1.jpg", photos: ["images/travel/1.jpg","images/travel/2.jpg"] },
-  { title: "생일", year: 2024, cover: "images/birthday/1.jpg", photos: ["images/birthday/1.jpg"] },
-  { title: "놀이시간", year: 2023, cover: "images/playtime/1.jpg", photos: ["images/playtime/1.jpg"] }
+  { title: "여행", year: 2024, cover: "images/travel/12.jpg", photos: ["images/travel/1.jpg","images/travel/2.jpg"] }
+  { title: "100일까지의 여정", year: 2024, cover: "images/travel/1.jpg", photos: ["images/travel/1.jpg","images/travel/2.jpg"] }
 ];
 
 const grid = document.getElementById("themeGrid");
