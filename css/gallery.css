@@ -55,18 +55,77 @@ header p{ color:#555; font-size:14px; }
 /* 모달 보기 */
 .modal{
   position:fixed; inset:0; background:rgba(255,255,255,.96);
-  display:none; flex-direction:column; align-items:center; justify-content:center;
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
   z-index:100;
 }
 .modal.open{ display:flex; animation:fade .2s ease; }
-.modal img{
-  max-width:90vw; max-height:80vh;
-  border:3px solid #111; background:#fff;
+.modal__content{
+  position:relative;
+  display:flex; align-items:center; gap:12px;
 }
-.modal button{
-  position:absolute; top:20px; right:20px;
-  background:#111; color:#fff; border:none; border-radius:4px;
-  padding:6px 12px; cursor:pointer;
+.modal img{
+  max-width:70vw; max-height:80vh;
+  border:3px solid #111; background:#fff;
+  border-radius:6px;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+}
+.modal__close{
+  position:absolute; top:-44px; right:0;
+  background:#111; color:#fff; border:none; border-radius:6px;
+  padding:6px 14px;
+  cursor:pointer;
   font-family:'Courier New',monospace;
+  font-size:13px;
+}
+.modal__nav{
+  background:#111;
+  color:#fff;
+  border:none;
+  width:44px; height:44px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease;
+}
+.modal__nav:hover{ background:#333; }
+.modal__close:focus-visible,
+.modal__nav:focus-visible{
+  outline:3px solid rgba(17,17,17,.6);
+  outline-offset:3px;
+}
+.modal__counter{
+  position:absolute;
+  bottom:-32px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:14px;
+  color:#333;
+  background:rgba(255,255,255,0.9);
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid #111;
+}
+
+@media (max-width: 640px){
+  .modal__content{
+    flex-direction:column;
+  }
+  .modal__nav{
+    order:-1;
+    width:36px; height:36px;
+    font-size:20px;
+  }
+  .modal__counter{
+    position:static;
+    transform:none;
+    margin-top:12px;
+  }
+  .modal__close{
+    top:12px; right:12px;
+  }
 }
 @keyframes fade{from{opacity:0}to{opacity:1}}
