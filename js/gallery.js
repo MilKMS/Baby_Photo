@@ -1,12 +1,37 @@
 // 테마 데이터 (폴더와 마지막 번호만 입력하면 자동 생성)
 const RAW_THEMES = [
-  { title: "100일까지의 여정", year: 2024, folder: "images/borntohundred", lastIndex: 38 },
-  { title: "첫 생일", year: 2025, folder: "images/OneYears", lastIndex: 71 }
+  {
+    title: "100일까지의 여정",
+    year: 2024,
+    folder: "images/borntohundred",
+    startIndex: 1,
+    lastIndex: 38,
+    pad: 3,
+    extensionRules: [
+      { start: 7, end: 19, extension: "JPG" }
+    ]
+  },
+  {
+    title: "첫 생일",
+    year: 2025,
+    folder: "images/OneYears",
+    startIndex: 1,
+    lastIndex: 71,
+    pad: 3
+  }
 ];
 
-const buildPhotoList = ({ folder, lastIndex, startIndex = 1, extension = "jpg" }) => {
+const buildPhotoList = ({ folder, lastIndex, startIndex = 1, extension = "jpg", pad = 0, extensionRules = [] }) => {
   const total = Math.max(0, lastIndex - startIndex + 1);
-  return Array.from({ length: total }, (_, idx) => `${folder}/${startIndex + idx}.${extension}`);
+
+  return Array.from({ length: total }, (_, idx) => {
+    const photoIndex = startIndex + idx;
+    const matchedRule = extensionRules.find(rule => photoIndex >= rule.start && photoIndex <= rule.end);
+    const fileExtension = matchedRule?.extension ?? extension;
+    const formattedIndex = pad ? String(photoIndex).padStart(pad, "0") : String(photoIndex);
+
+    return `${folder}/${formattedIndex}.${fileExtension}`;
+  });
 };
 
 const THEMES = RAW_THEMES.map(theme => {

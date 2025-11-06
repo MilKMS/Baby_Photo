@@ -11,9 +11,6 @@ body{
   font-family:'Courier New',monospace;
   background:var(--bg);
   color:var(--ink);
-  min-height:100vh;
-  display:flex; flex-direction:column;
-  align-items:center;
   padding:20px;
   /* 종이 질감(작은 도트 노이즈) */
   background-image: radial-gradient(var(--dot) 1px, transparent 1px);
@@ -21,7 +18,7 @@ body{
 }
 header{
   text-align:center;
-  margin-bottom:20px;
+  margin:0 auto 20px;
   width:100%;
   max-width:1000px;
 }
@@ -29,7 +26,7 @@ header h1{ font-size:28px; margin-bottom:6px; }
 header p{ color:#555; font-size:14px; }
 
 footer{
-  margin-top:24px;
+  margin:24px auto 0;
   color:#666;
   font-size:13px;
   text-align:center;
@@ -43,7 +40,7 @@ footer{
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   width:100%;
   max-width:1000px;
-  flex:1 0 auto;
+  margin:0 auto;
 }
 
 .card{
@@ -59,7 +56,10 @@ footer{
 .card:hover{ transform:scale(1.03); }
 
 .card img{
-  width:100%; height:160px; object-fit:cover;
+  display:block;
+  width:100%;
+  aspect-ratio: 3 / 2;
+  object-fit:cover;
   border:1px dashed #222;
   background:#fafafa;
 }
